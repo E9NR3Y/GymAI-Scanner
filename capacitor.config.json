@@ -1,0 +1,10 @@
+
+{
+  "appId": "com.gymai.scanner",
+  "appName": "GymAI Scanner",
+  "webDir": ".",
+  "bundledWebRuntime": false,
+  "server": {
+    "androidScheme": "https"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "name": "GymAI",
+  "description": "Carica la tua scheda palestra (PDF o Foto), l'IA estrarrà automaticamente esercizi, serie e gruppi muscolari.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}

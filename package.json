@@ -1,0 +1,22 @@
+
+{
+  "name": "gymai-scanner",
+  "version": "1.0.0",
+  "description": "AI Gym Scanner App",
+  "main": "index.tsx",
+  "scripts": {
+    "build": "echo 'Building web assets...'",
+    "sync": "cap sync"
+  },
+  "dependencies": {
+    "@capacitor/core": "^6.0.0",
+    "@capacitor/android": "^6.0.0",
+    "lucide-react": "^0.556.0",
+    "uuid": "^13.0.0",
+    "jspdf": "^2.5.1",
+    "@google/genai": "^1.32.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6.0.0"
+  }
+}
