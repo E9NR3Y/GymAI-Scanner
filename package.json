@@ -5,9 +5,10 @@
   "description": "AI Gym Scanner App",
   "main": "index.tsx",
   "scripts": {
-  "build": "vite build",
-  "sync": "cap sync"
-},
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
   "dependencies": {
     "@capacitor/core": "^6.0.0",
     "@capacitor/android": "^6.0.0",
