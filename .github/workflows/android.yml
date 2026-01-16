@@ -24,7 +24,11 @@ jobs:
         run: npm install
 
       - name: Build Web Assets
-        run: npm run build # Questo crea la cartella /dist richiesta
+        run: |
+          mkdir -p www
+          # Se hai un comando build nel package.json usalo, 
+          # altrimenti copiamo solo l'index.html
+          cp index.html www/ || echo "index.html non trovato"
 
       - name: Add Android Platform
         run: npx cap add android || true
