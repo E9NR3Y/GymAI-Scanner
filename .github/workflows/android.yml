@@ -23,16 +23,22 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Force Build Web Assets
+      - name: Build Web Assets
         run: |
           mkdir -p www
+          # Copia l'index se esiste, altrimenti creane uno vuoto per non far fallire Capacitor
           cp index.html www/ || touch www/index.html
 
-      - name: Initialize Capacitor Android
+      - name: Emergency Capacitor Reset
+        run: |
+          # Elimina eventuali configurazioni vecchie che causano l'errore del punto "."
+          rm -rf android
+          # Forza la creazione di un file config pulito
+          echo '{"appId":"com.gymai.scanner","appName":"GymAI Scanner","webDir":"www","bundledWebRuntime":false}' > capacitor.config.json
+
+      - name: Initialize Android
         run: |
           npx cap add android
-          # Sovrascriviamo la config interna per sicurezza
-          echo '{"appId": "com.gymai.scanner", "appName": "GymAI Scanner", "webDir": "www", "bundledWebRuntime": false}' > capacitor.config.json
           npx cap copy android
           npx cap sync android
 
