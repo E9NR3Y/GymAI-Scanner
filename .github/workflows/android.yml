@@ -1,6 +1,4 @@
-
 name: Build Android APK
-
 on:
   push:
     branches: [ main ]
@@ -25,12 +23,15 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      - name: Build Web Assets
+        run: npm run build # Questo crea la cartella /dist richiesta
+
       - name: Add Android Platform
         run: npx cap add android || true
 
       - name: Copy Web Assets & Sync
         run: |
-          npx cap copy
+          npx cap copy android
           npx cap sync android
 
       - name: Build with Gradle
