@@ -22,13 +22,12 @@ jobs:
           node-version: '20'
 
       - name: Install Dependencies
-        run: npm install
+        run: npm install --include=dev
 
       - name: Build Web Assets
         run: |
-          # Questo compila il codice React/TypeScript
-          npm run build
-          # Vite crea 'dist', noi la trasformiamo nella 'www' che vuole Capacitor
+          # Usiamo npx per essere sicuri che trovi vite
+          npx vite build
           rm -rf www
           mv dist www
 
