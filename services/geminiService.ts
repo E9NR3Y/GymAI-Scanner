@@ -10,7 +10,7 @@ const cleanBase64 = (base64Data: string) => {
 // Configurazione Client con recupero sicuro della Key
 const getAiClient = () => {
   // In Vite si usa import.meta.env invece di process.env
-  const apiKey = import.meta.env.VITE_GEMINI_API_KEY || "";
+  const apiKey = "AIzaSyBYj1NLdmgCrdivzOsI2NiLuiJie1HDHe0";
   if (!apiKey) {
     console.warn("API Key mancante in import.meta.env");
   }
