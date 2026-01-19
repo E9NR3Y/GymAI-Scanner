@@ -62,3 +62,24 @@ jobs:
         with:
           name: gym-ai-scanner-debug-apk
           path: android/app/build/outputs/apk/debug/app-debug.apk
+
+          - name: Build Web Assets
+        run: |
+          npm install
+          npx vite build
+          # Forza la creazione della cartella www se non esiste
+          rm -rf www
+          mv dist www
+
+      - name: Repair Capacitor Config
+        run: |
+          # Sovrascrive il config per essere certi che webDir sia "www"
+          echo '{"appId":"com.gymai.scanner","appName":"GymAI Scanner","webDir":"www"}' > capacitor.config.json
+
+      - name: Initialize Capacitor Android
+        run: |
+          # Rimuove cartelle vecchie per una pulizia totale
+          rm -rf android
+          npx cap add android
+          npx cap copy android
+          npx cap sync android
