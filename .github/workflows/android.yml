@@ -31,13 +31,6 @@ jobs:
           rm -rf www
           mv dist www
 
-          - name: Build Web Assets
-        run: |
-          npm install
-          npx vite build
-          rm -rf www
-          mv dist www
-
       - name: Initialize Capacitor Android
         run: |
           npx cap add android
