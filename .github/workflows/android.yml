@@ -26,30 +26,25 @@ jobs:
 
       - name: Build Web Assets
         run: |
-          # Usiamo npx per essere sicuri che trovi vite
           npx vite build
           rm -rf www
           mv dist www
 
+      - name: Repair Capacitor Config
+        run: |
+          # Questo risolve l'errore "." per webDir
+          echo '{"appId":"com.gymai.scanner","appName":"GymAI Scanner","webDir":"www"}' > capacitor.config.json
+
       - name: Initialize Capacitor Android
         run: |
           npx cap add android
-          npx cap copy
-          npx cap sync
+          npx cap copy android
+          npx cap sync android
           
       - name: Add Camera Permissions
         run: |
-          # Questo comando inserisce i permessi nel file che GitHub ha appena creato
+          # Inserisce i permessi nel file temporaneo per la fotocamera
           sed -i '/<application/i <uses-permission android:name="android.permission.CAMERA" />\n<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />\n<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />' android/app/src/main/AndroidManifest.xml
-
-      - name: Initialize and Sync Capacitor
-        run: |
-          # Pulizia totale per evitare l'errore del punto "."
-          rm -rf android
-          echo '{"appId":"com.gymai.scanner","appName":"GymAI Scanner","webDir":"www","bundledWebRuntime":false}' > capacitor.config.json
-          npx cap add android
-          npx cap copy android
-          npx cap sync android
 
       - name: Build with Gradle
         run: |
@@ -62,24 +57,3 @@ jobs:
         with:
           name: gym-ai-scanner-debug-apk
           path: android/app/build/outputs/apk/debug/app-debug.apk
-
-          - name: Build Web Assets
-        run: |
-          npm install
-          npx vite build
-          # Forza la creazione della cartella www se non esiste
-          rm -rf www
-          mv dist www
-
-      - name: Repair Capacitor Config
-        run: |
-          # Sovrascrive il config per essere certi che webDir sia "www"
-          echo '{"appId":"com.gymai.scanner","appName":"GymAI Scanner","webDir":"www"}' > capacitor.config.json
-
-      - name: Initialize Capacitor Android
-        run: |
-          # Rimuove cartelle vecchie per una pulizia totale
-          rm -rf android
-          npx cap add android
-          npx cap copy android
-          npx cap sync android
