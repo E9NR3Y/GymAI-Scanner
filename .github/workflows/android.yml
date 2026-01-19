@@ -31,6 +31,24 @@ jobs:
           rm -rf www
           mv dist www
 
+          - name: Build Web Assets
+        run: |
+          npm install
+          npx vite build
+          rm -rf www
+          mv dist www
+
+      - name: Initialize Capacitor Android
+        run: |
+          npx cap add android
+          npx cap copy
+          npx cap sync
+          
+      - name: Add Camera Permissions
+        run: |
+          # Questo comando inserisce i permessi nel file che GitHub ha appena creato
+          sed -i '/<application/i <uses-permission android:name="android.permission.CAMERA" />\n<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />\n<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />' android/app/src/main/AndroidManifest.xml
+
       - name: Initialize and Sync Capacitor
         run: |
           # Pulizia totale per evitare l'errore del punto "."
