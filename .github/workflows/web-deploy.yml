@@ -2,6 +2,10 @@ name: Deploy Web App
 on:
   push:
     branches: [ main ]
+
+permissions:
+  contents: write
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -11,8 +15,10 @@ jobs:
         with:
           node-version: '20'
       - run: npm install
+      # Sostituisci GymAI-Scanner con il nome esatto del tuo repository
       - run: npx vite build --base=/GymAI/
-      - uses: JamesIves/github-pages-deploy-action@v4
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: dist
           branch: gh-pages
